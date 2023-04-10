@@ -68,7 +68,7 @@ public class questões {
 			System.out.println("numero invalido");
 	}
 	*/
-	/* questao 5
+	                /* questao 5
 	public static void main(String[] args) {
 		int a, b;
 		System.out.println("Defina 'a' e 'b': ");
@@ -82,7 +82,7 @@ public class questões {
 			System.out.println("numero invalido");
 	}
 	*/
-	/* questao 6
+	              /* questao 6
 	public static void main(String[] args) {
 		int a, b;
 		System.out.println("Defina 'a' e 'b': ");
@@ -101,7 +101,7 @@ public class questões {
 			System.out.println("a + b != 20");
 	}
 	*/
-	/* questao 7 
+	              /* questao 7 
 	public static void main(String[] args) {
 		int a, b;
 		System.out.println("Defina 'a' e 'b': ");
@@ -117,7 +117,7 @@ public class questões {
 		}	
 	}
 	*/
-	    /*questao 8
+	         /*questao 8
 	public static void main(String[] args) {
 		int a, b;
 		System.out.println("Defina 'a' e 'b': ");
@@ -153,7 +153,7 @@ public class questões {
 			System.out.println("numero nao valido");
 		}
      */
-	/* questao 10
+	           /* questao 10
 	public static void main(String[] args) {
 		int a, b;
 		System.out.println("Defina 'a' e 'b': ");
