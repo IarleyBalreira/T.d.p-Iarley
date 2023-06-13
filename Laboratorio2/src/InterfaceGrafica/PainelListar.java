@@ -1,5 +1,12 @@
 package InterfaceGrafica;
 
-public class PainelListar extends Painel {
+import javax.swing.JPanel;
 
+public class PainelListar extends JPanel {
+
+	public PainelListar() {
+		
+		
+		setVisible(false);
+	}
 }

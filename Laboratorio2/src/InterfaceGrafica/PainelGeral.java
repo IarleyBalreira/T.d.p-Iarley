@@ -2,26 +2,27 @@ package InterfaceGrafica;
 
 import java.awt.Color;
 
-public class PainelGeral extends Painel {
+import javax.swing.JPanel;
 
-	private Janela geral;
-	public PainelGeral(Janela frame) {
-		this.geral = frame;
-	}
+public class PainelGeral extends JPanel {
+
+	private JanelaPrincipal frame;
 		
-	public PainelGeral() {
+	public PainelGeral(JanelaPrincipal frame) {
 	
+		this.frame = frame;
+		
 		Botao cadastrar = new Botao("Cadastrar");
-		cadastrar.addActionListener(new MostrarCadastro(geral));
+		cadastrar.addActionListener(new MostrarCadastro(frame));
 		
 		Botao listar = new Botao("Listar");
-		
+		listar.addActionListener(new MostrarListar(frame));
 		
 		Botao atualizar = new Botao("Atualizar");
-		
+		atualizar.addActionListener(new MostrarAtualizar(frame));
 		
 		Botao deletar = new Botao("Deletar");
-		
+		deletar.addActionListener(new MostrarDeletar(frame));
 		
 		this.add(cadastrar);
 		this.add(listar);

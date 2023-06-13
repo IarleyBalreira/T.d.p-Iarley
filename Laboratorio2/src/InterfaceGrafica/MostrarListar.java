@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class MostrarListar implements ActionListener{
 
-	private Janela frame;
-	public MostrarListar(Janela frame) {
+	private JanelaPrincipal frame;
+	public MostrarListar(JanelaPrincipal frame) {
 		
 		this.frame = frame;
 	}

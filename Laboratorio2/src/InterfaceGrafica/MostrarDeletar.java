@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class MostrarDeletar implements ActionListener{
 
-	private Janela frame;
-	public MostrarDeletar(Janela frame) {
+	private JanelaPrincipal frame;
+	public MostrarDeletar(JanelaPrincipal frame) {
 		
 		this.frame = frame;
 	}

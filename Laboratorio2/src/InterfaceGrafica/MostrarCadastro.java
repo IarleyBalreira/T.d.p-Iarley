@@ -6,19 +6,19 @@ import java.awt.event.ActionListener;
 public class MostrarCadastro implements ActionListener{
 
 	
-	private Janela frame = new Janela();
+	private JanelaPrincipal frame;
 	
-	public MostrarCadastro(Janela frame) {
-		this.frame = frame;
-		
+	public MostrarCadastro(JanelaPrincipal frame) {
+		this.frame = frame;	
 		
 	}
+	
 	public void actionPerformed(ActionEvent e) {
 		
-		frame.painelCadastrar.mostrar();
-		frame.painelAtualizar.naoMostrar();
-		frame.painelListar.naoMostrar();
-		frame.painelDeletar.naoMostrar();
+		frame.painelCadastrar.setVisible(true);
+		frame.painelAtualizar.setVisible(false);
+		frame.painelListar.setVisible(false);
+		frame.painelDeletar.setVisible(false);
 	
 	}
 	
