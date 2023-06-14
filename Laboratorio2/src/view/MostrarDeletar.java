@@ -1,12 +1,12 @@
-package InterfaceGrafica;
+package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MostrarListar implements ActionListener{
+public class MostrarDeletar implements ActionListener{
 
 	private JanelaPrincipal frame;
-	public MostrarListar(JanelaPrincipal frame) {
+	public MostrarDeletar(JanelaPrincipal frame) {
 		
 		this.frame = frame;
 	}
@@ -15,8 +15,7 @@ public class MostrarListar implements ActionListener{
 		
 		frame.painelCadastrar.setVisible(false);
 		frame.painelAtualizar.setVisible(false);
-		frame.painelListar.setVisible(true);
-		frame.painelDeletar.setVisible(false);
+		frame.painelListar.setVisible(false);
+		frame.painelDeletar.setVisible(true);
 	}
-	
 }

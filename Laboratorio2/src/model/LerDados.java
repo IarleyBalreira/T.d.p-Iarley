@@ -1,0 +1,49 @@
+package model;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+
+import controller.Aluno;
+
+public class LerDados {
+	
+	private ArrayList<Aluno> lista;
+	 
+	 public LerDados() {
+		 
+	    lista = new ArrayList<Aluno>();
+	}
+
+	public void lerDados(String diretorio) {
+		
+		try {
+			
+			FileReader arquivo = new FileReader(diretorio);
+			BufferedReader leitura = new BufferedReader(arquivo);
+
+			while (leitura.ready()) {
+				lista.add(separarDadosDosAlunos(leitura.readLine()));
+				}
+
+			} catch (Exception e) {
+			
+		}
+	}
+
+	private Aluno separarDadosDosAlunos(String linha) {
+		
+		String dados[] = linha.split(";");
+		Aluno aluno = new Aluno(dados[0], dados[1],(dados[2]), dados[3]);
+		return aluno;
+	}
+	
+	public ArrayList<Aluno> getLista() {
+		return lista;
+	}
+
+	public void setLista(ArrayList<Aluno> lista) {
+		this.lista = lista;
+	}
+	
+}

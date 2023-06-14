@@ -1,4 +1,4 @@
-package InterfaceGrafica;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,13 +25,14 @@ public PainelAtualizar() {
 	txtvertente.setBackground(Color.LIGHT_GRAY);
 	txtvertente.setBorder(BorderFactory.createTitledBorder(loweredbevel, "Vertente"));
 	
-	Botao b= new Botao("Atualizar");
-	b.setBounds(150, 300, 200, 50);
+	Botao atualizacao = new Botao("Atualizar");
+	atualizacao.setBounds(150, 300, 200, 50);
+	atualizacao.addActionListener(null);
 	
 	this.setLayout(null);
 	this.add(txtmatricula);
 	this.add(txtvertente);
-	this.add(b);
+	this.add(atualizacao);
 		
 		setVisible(false);
 	}

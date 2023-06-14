@@ -1,11 +1,18 @@
-package InterfaceGrafica;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+
+import controller.ListaAlunos;
+import controller.Aluno;
 
 public class PainelCadastrar extends JPanel{
 
@@ -42,9 +49,14 @@ public class PainelCadastrar extends JPanel{
 		txtvertente.setBackground(Color.LIGHT_GRAY);
 		txtvertente.setBorder(BorderFactory.createTitledBorder(loweredbevel, "Vertente"));
 		
+		String nome = txtnome.getText();
+		String cpf = txtcpf.getText();
+		String matricula = txtmatricula.getText();
+		String vertente = txtvertente.getText();
+		
 		Botao realizarCadastro = new Botao("Cadastrar");
 		realizarCadastro.setBounds(150, 350, 200, 50);
-		
+		realizarCadastro.addActionListener(new salvarCadastro(nome, cpf, matricula, vertente));
 		
 		this.setLayout(null);
 		
@@ -60,4 +72,36 @@ public class PainelCadastrar extends JPanel{
 		
 		setVisible(false);
 	}
+	
+	private class salvarCadastro implements ActionListener {
+
+		String dadonome;
+		String dadocpf ;
+		String dadomatricula ;
+		String dadovertente;
+		
+		public salvarCadastro(String nome, String cpf, String matricula, String vertente){
+			
+			this.dadonome = nome;
+			this.dadocpf = cpf;
+			this.dadomatricula = matricula;
+			this.dadovertente = vertente;
+			
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			if (salvarCadastro.this.dadonome.equals("") || salvarCadastro.this.dadocpf.equals("") ||
+					salvarCadastro.this.dadomatricula.equals("")||  salvarCadastro.this.dadovertente.equals("")) {
+				JOptionPane.showMessageDialog(new JanelaPrincipal() ,"Deve preencher todos os campos", "Aviso", JOptionPane.WARNING_MESSAGE);
+				
+			}
+			
+				
+			ListaAlunos alunos = new ListaAlunos();
+			alunos.addAluno(new Aluno(salvarCadastro.this.dadonome ,salvarCadastro.this.dadocpf,
+					salvarCadastro.this.dadomatricula,  salvarCadastro.this.dadovertente));
+				
+		}
+	}
 }
+

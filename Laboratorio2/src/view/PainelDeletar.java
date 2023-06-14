@@ -1,4 +1,4 @@
-package InterfaceGrafica;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,13 +21,14 @@ public class PainelDeletar extends JPanel {
 		txtmatricula.setBackground(Color.LIGHT_GRAY);
 		txtmatricula.setBorder(BorderFactory.createTitledBorder(loweredbevel, "Matricula"));
 		
-		Botao b= new Botao("Deletar");
-		b.setBounds(150, 300, 200, 50);
+		Botao botaoDelet = new Botao("Deletar");
+		botaoDelet.setBounds(150, 300, 200, 50);
+		botaoDelet.addActionListener(null);
 		
 		this.setLayout(null);
 		
 		this.add(txtmatricula);
-		this.add(b);
+		this.add(botaoDelet);
 		
 		setVisible(false);
 	}
