@@ -2,7 +2,7 @@ package controller;
 
 import java.awt.Color;
 
-public abstract class RobosAbstract implements RobosInterface{
+public abstract class Robos implements RobosInterface{
 	
 	private Plano plano;
 	private String nome;
@@ -10,24 +10,26 @@ public abstract class RobosAbstract implements RobosInterface{
 	private int pontuacao;
 	private int alunosSalvos;
 	private int bugsEncontrados;
-	private Color corNoPlano;
+	private Color corRobo;
 	
-	public RobosAbstract(String nome, Plano plano, int vermelho, int verde, int azul) {
+	public Robos(String nome, Plano plano, int vermelho, int verde, int azul) {
 		
 		this.nome = nome;
 		this.plano = plano;
-		coordRobo = new int[2];	 coordRobo[0]=0; coordRobo[1]=0;
+		coordRobo = new int[2];	 coordRobo[0] = 0; coordRobo[1] = 0;
+		alunosSalvos = 0;
+		bugsEncontrados = 0;
 		pontuacao = 0;
-		alunosSalvos=0;
-		bugsEncontrados=0;
-		corNoPlano = new Color(vermelho, verde, azul);
+		corRobo = new Color(vermelho, verde, azul);
+		
 	} 
 	
 	
 	public void receberCoord(int[] coord) {
 		
-		this.coordRobo[0]=coord[0];
-		this.coordRobo[1]=coord[1];
+		this.coordRobo[0] = coord[0];
+		this.coordRobo[1] = coord[1];
+		
 	}
 	
 	
@@ -43,19 +45,20 @@ public abstract class RobosAbstract implements RobosInterface{
 				
 	}
 
-	protected void finalizarMovimentacao() {
+	protected void concluirMov() {
 		
 			plano.roboVisitouCelula(coordRobo);
 	}
 	
-	protected void setCorNoPlano(Color corNoPlano) {
+	protected void setCorRobo(Color corRobo) {
 		
-		this.corNoPlano = corNoPlano;
+		this.corRobo = corRobo;
 	}
 	
 	private void verificaAlunoeBug(int coord[]) {
 		
 		if(plano.celulaTemAluno(coord)) {
+			
 			this.atualizarPontuacao(10, true);
 			alunosSalvos++;
 		}
@@ -67,16 +70,17 @@ public abstract class RobosAbstract implements RobosInterface{
 		
 	}
 	
-	
 	private void atualizarPontuacao(int qtd, boolean ganhou) {
 		
 		if(ganhou)
-			pontuacao+=qtd;
+			pontuacao+=qtd;   // achou aluno
 		else
-			pontuacao-=qtd;
+			pontuacao-=qtd;  // achou bug
+		
 	}
 	
 	protected void setCoordRobo(int coord[]) {
+		
 		this.coordRobo[0] = coord[0];
 		this.coordRobo[1] = coord[1];
 	}
@@ -102,8 +106,8 @@ public abstract class RobosAbstract implements RobosInterface{
 		return bugsEncontrados;
 	}
 
-	public Color getCorNoPlano() {
-		return corNoPlano;
+	public Color getCorRobo() {
+		return corRobo;
 	}
 	
 }

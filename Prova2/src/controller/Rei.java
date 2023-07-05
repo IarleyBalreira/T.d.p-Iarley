@@ -1,8 +1,8 @@
 package controller;
 
-public class RoboRei extends RobosAbstract{
+public class Rei extends Robos{
 
-	public RoboRei(String nome, Plano plano, int vermelho, int verde, int azul) {
+	public Rei(String nome, Plano plano, int vermelho, int verde, int azul) {
 		super(nome, plano, vermelho, verde,  azul);
 	}
 

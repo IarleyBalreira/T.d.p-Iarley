@@ -17,41 +17,39 @@ import controller.Plano;
 
 public class PainelInicial extends Painel{
 	
-	private Janela ig;
+	private Janela janela;
 	private Plano plano;
 	private JTextField txtnome;
 	private JButton botaoJogar;
-	private JButton botaoRelatorioDoJogo;
+	private JButton botaoRelatorio;
 	
-	public PainelInicial(Janela ig, Plano plano) {
-		super(ig);
-		this.ig = ig;
+	public PainelInicial(Janela janela, Plano plano) {
+		super(janela);
+		this.janela = janela;
 		this.plano = plano;
 		
-		this.setPreferredSize(new Dimension(800, 60));
-		this.setLayout(new GridLayout(1,2));
+		this.setPreferredSize(new Dimension(janela.getWidth(), 75));
+		this.setLayout(new GridLayout(1,1));
+//		this.setLayout(null);
 		
 		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-		JPanel nomeJogador = criarpainel(new Color(120, 230, 245));
+		JPanel painel = criarpainel(Color.LIGHT_GRAY);
 		
-		txtnome = criarJTextField(new Dimension(180, 40));
-		txtnome.setBackground(new Color(120, 230, 245));
+//		txtnome.setBounds(50, 10, 300, 50);
+		txtnome = criarTextField(new Dimension(200, 40));
+		txtnome.setBackground(Color.LIGHT_GRAY);
 		txtnome.setBorder(BorderFactory.createTitledBorder(loweredbevel,"Nome"));
-		
-		nomeJogador.add(txtnome);
 		
 		botaoJogar = criaBotao(new Color(110, 155, 235), "Jogar", new Dimension(80, 30));
 		botaoJogar.addActionListener(new botaoJogar());
-		nomeJogador.add(botaoJogar);
 		
-		JPanel painelBotaoRelatorio = criarpainel(new Color(120, 230, 245));
+		botaoRelatorio = criaBotao(new Color(110, 155, 235), "Historico geral", new Dimension(180, 40));
+		botaoRelatorio.addActionListener(new botaoRelatorio());
 		
-		botaoRelatorioDoJogo = criaBotao(new Color(110, 155, 235), "Historico Geral", new Dimension(180, 40));
-		botaoRelatorioDoJogo.addActionListener(new botaoRelatorioDoJogo());
-		painelBotaoRelatorio.add(botaoRelatorioDoJogo);
-		
-		this.add(nomeJogador);
-		this.add(painelBotaoRelatorio);
+		painel.add(txtnome);
+		painel.add(botaoJogar);
+		painel.add(botaoRelatorio);
+		this.add(painel);
 		
 		if(plano.getNomeJogador() != null) {
 			
@@ -62,7 +60,7 @@ public class PainelInicial extends Painel{
 		
 	}
 	
-	private JTextField criarJTextField(Dimension dimension) {
+	private JTextField criarTextField(Dimension dimension) {
 		JTextField jtf = new JTextField();
 		jtf.setDisabledTextColor(Color.BLACK);		
 		jtf.setPreferredSize(dimension);
@@ -75,21 +73,22 @@ public class PainelInicial extends Painel{
 			
 			if(txtnome.getText().isEmpty()) {
 				
-				ig.painelMessageDialog(txtnome, "Esqueceu do nome de jogador!");
+				janela.painelMessageDialog(txtnome, "Esqueceu do nome de jogador!");
+				 // mensagem caso nao tenha colocado nome
 			} else {
 				
 				plano.setNomeJogador(txtnome.getText());
 				txtnome.setEnabled(false);
 				botaoJogar.setEnabled(false);
-				ig.setVisibilidadeBotoesComando(true);
+				janela.setVisibilidadeBotoesComando(true);
 			}
 		}
 		
 	}
 	
-	private class botaoRelatorioDoJogo implements ActionListener {
+	private class botaoRelatorio implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			ig.relatorioDoJogo();
+			janela.relatorioDoJogo();
 		}
 		
 	}

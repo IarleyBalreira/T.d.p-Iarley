@@ -7,7 +7,7 @@ public class Celulas {
 
 	private int x;
 	private int y;
-	private RobosAbstract roboCelula;
+	private Robos roboCelula;
 	
 	private boolean temAluno;
 	private boolean temBug;
@@ -24,7 +24,7 @@ public class Celulas {
 	public Color imprimirCor() {
 		if(this.temRobo()) {
 			
-			return this.getRobo().getCorNoPlano();
+			return this.getRobo().getCorRobo();
 			
 		} else {
 			//verificacao se tem algo na celula
@@ -48,15 +48,15 @@ public class Celulas {
 		}
 	}
 
-	public RobosAbstract getRobo() {
+	public Robos getRobo() {
 		return roboCelula; 
 	}
 	
-	public void addRobo(RobosAbstract robo) {
+	public void addRobo(Robos robo) {
 		this.roboCelula = robo;
 	}
 	
-	public void removerRobo(RobosAbstract robo) {
+	public void removerRobo(Robos robo) {
 		this.roboCelula = null;
 	}
 	

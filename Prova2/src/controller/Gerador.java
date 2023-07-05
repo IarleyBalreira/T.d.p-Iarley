@@ -8,43 +8,45 @@ import model.*;
 
 public final class Gerador {
 	
-	private ArrayList<RobosAbstract> arrayRobos;
+	private ArrayList<Robos> arrayRobos;
 	private Plano plano;
 	private Janela intGraf;
 	
-	private Escrita escreverDados;
-	private Leitura lerDados;
+	private EscreverDados escreverDados;
+	private LerDados lerDados;
 	
 	public Gerador() {
 		
 		int tamanhoTabuleiro = 8;
+		
 		int numAlunos = 7;
+		
 		int numBugs = 10;
 		
-		escreverDados = new Escrita();
-		lerDados = new Leitura();
+		escreverDados = new EscreverDados();
+		lerDados = new LerDados();
 		
 		plano = new Plano(tamanhoTabuleiro, numAlunos, numBugs);
 		
-		arrayRobos = new ArrayList<RobosAbstract>();
+		arrayRobos = new ArrayList<Robos>();
 		
-		arrayRobos.add(new RoboAndador("Robo Andador", plano, 0, 255, 0));
+		arrayRobos.add(new Andador(" Andador", plano, 0, 255, 0));
 		//arrayRobos.add(new RoboTorre("Robo Torre", plano, 255, 0, 255));
 		//arrayRobos.add(new RoboBispo("Robo Bispo", plano, 225, 0, 0));
-		arrayRobos.add(new RoboCavalo("Robo Cavalo", plano, 155, 0, 255));
-		arrayRobos.add(new RoboRei("Robo Rei", plano, 200, 70, 140));
+		arrayRobos.add(new Cavalo(" Cavalo", plano, 155, 0, 255));
+		arrayRobos.add(new Rei(" Rei", plano, 200, 70, 140));
 		
 		this.instanciarJanelaDeJogo();
 	}
 	
 	public void verificarRodada() { 
 		
-		for (RobosAbstract robo : arrayRobos) {
-			robo.finalizarMovimentacao();
+		for (Robos robo : arrayRobos) {
+			robo.concluirMov();
 			
 		}
 		
-		plano.atualizarQtdBugEAlunos();
+		plano.atualizarBugEAlunos();
 		
 	}
 	
@@ -81,7 +83,7 @@ public final class Gerador {
 		String dadosPartida = 
 				
 				plano.getNomeJogador()+";"+
-				plano.getQtdRodadas()+";"+
+				plano.getNumRodadas()+";"+
 				plano.verificaFim()+";"+
 				plano.celulasVazias()+";"+
 				plano.alunosResgatados()+";"+
@@ -105,7 +107,7 @@ public final class Gerador {
 	private int verificaPontuacaoFinal() {
 
 		int numPontos = 0;
-		for (RobosAbstract robo : arrayRobos) {
+		for (Robos robo : arrayRobos) {
 			
 			numPontos += robo.getPontuacao();
 		}

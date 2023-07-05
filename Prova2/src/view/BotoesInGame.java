@@ -14,89 +14,86 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import controller.Plano;
-import controller.RobosAbstract;
+import controller.Robos;
 
-public class Botoes extends Painel{
+public class BotoesInGame extends Painel{
 	
-	private Janela ig;
-	private ArrayList<RobosAbstract> arrayDeRobos;
-	private JPanel painelBotoesDosRobos;
-	private JPanel painelBotoesDeControle;
-	private JPanel painelDeRelatorio;
+	private Janela janela;
+	private ArrayList<Robos> listaRobos;
+	private JPanel painelBotoesRobos;
+	private JPanel painelBotoesGerais;
+	private JPanel painelRelatorio;
 	private JButton botaoProxRodada;
-	private ArrayList<JButton> botoesDeRobos;
+	private ArrayList<JButton> botoesRobos;
 	private Color corPadrao;
 	
-	public Botoes(Janela ig, Plano plano, ArrayList<RobosAbstract> arrayDeRobos) {
-		super(ig);
-		this.ig = ig;
-		this.arrayDeRobos = arrayDeRobos;
-		
-		corPadrao = new Color(204, 204, 204); 
+	public BotoesInGame(Janela janela, Plano plano, ArrayList<Robos> listaRobos) {
+		super(janela);
+		this.janela = janela;
+		this.listaRobos = listaRobos;
+
+		corPadrao = new Color(100,100,100); 
 		JButton botao;
 		
 		this.setBackground(corPadrao);
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		this.setPreferredSize(new Dimension(300, 500));
-		botoesDeRobos = new ArrayList<JButton>();
-	
+		this.setPreferredSize(new Dimension(300, 400));
+		botoesRobos = new ArrayList<JButton>();
 		
+		painelBotoesRobos = criarpainel(corPadrao);
+		painelBotoesRobos.setPreferredSize(new Dimension(300, 120));
+		painelBotoesRobos.setLayout(new BoxLayout(painelBotoesRobos, BoxLayout.PAGE_AXIS));
 		
-		painelBotoesDosRobos = criarpainel(corPadrao);
-		painelBotoesDosRobos.setPreferredSize(new Dimension(300, 120));
-		painelBotoesDosRobos.setLayout(new BoxLayout(painelBotoesDosRobos, BoxLayout.PAGE_AXIS));
-		
-		int contador = 0;
-		for (RobosAbstract robo : arrayDeRobos) {
+		int cont = 0;
+		for (Robos robo : listaRobos) {
 			
-			botao = criarBotaoDoRobo(
-					painelBotoesDosRobos, robo.getNome(), robo.getCorNoPlano(), new botaoDosRobos(contador));
+			botao = criarBotaoRobo(painelBotoesRobos, robo.getNome(), robo.getCorRobo(), new botaoDosRobos(cont));
 			
-			painelBotoesDosRobos.add(botao);
-			botoesDeRobos.add(botao);
-			contador++;
+			painelBotoesRobos.add(botao);
+			botoesRobos.add(botao);
+			cont++;
 		}
 		
-		painelDeRelatorio = new PainelLateral(ig, arrayDeRobos, plano, corPadrao);
+		painelRelatorio = new PainelLateral(janela, listaRobos, plano, corPadrao);
 		
-		painelBotoesDeControle = criarpainel(corPadrao);
-		painelBotoesDeControle.setPreferredSize(new Dimension(200, 200));
-		painelBotoesDeControle.setLayout(new GridLayout(3,1));
+		painelBotoesGerais = criarpainel(corPadrao);
+		
+		painelBotoesGerais.setPreferredSize(new Dimension(150, 150));
+		painelBotoesGerais.setLayout(new GridLayout(3,1));
 		
 		botao = criarBotao(new Color(80, 200 , 105), "Verificar");
 		botao.addActionListener(new botaoVerificar());
-		painelBotoesDeControle.add(botao);
+		painelBotoesGerais.add(botao);
 		
-		botaoProxRodada = criarBotao(new Color(80, 200, 100), "Proxima Rodada");
+		botaoProxRodada = criarBotao(new Color(80, 200, 100), "Proxima rodada");
 		botaoProxRodada.addActionListener(new botaoRodada());
 		botaoProxRodada.setEnabled(false);
-		painelBotoesDeControle.add(botaoProxRodada);
+		painelBotoesGerais.add(botaoProxRodada);
 		
-		botao = criarBotao(new Color(80, 200, 100), "Sair Do Jogo");
+		botao = criarBotao(new Color(80, 200, 100), "Sair do jogo");
 		botao.addActionListener(new botaoSairDoJogo());
-		painelBotoesDeControle.add(botao);
+		painelBotoesGerais.add(botao);
 		
-		this.add(painelBotoesDosRobos);
-		this.add(painelDeRelatorio);
-		this.add(painelBotoesDeControle);
+		this.add(painelBotoesRobos);
+		this.add(painelRelatorio);
+		this.add(painelBotoesGerais);
 		
 	}
 	
-	private JButton criarBotaoDoRobo(JPanel jpanel, String nomeBotao, Color cor, ActionListener classeActListener ) {
+	private JButton criarBotaoRobo(JPanel jpanel, String nomeBotao, Color cor, ActionListener classeActListener ) {
 		JButton botao = criarBotao(cor, nomeBotao);
+		
 		botao.addActionListener(classeActListener);
-		botao.setFont(ig.getFontePadrao(14, Font.BOLD));
-		botao.setForeground(Color.WHITE);
-		botao.setPreferredSize(new Dimension(150,45));
+		botao.setPreferredSize(new Dimension(200,50));
 		botao.setAlignmentX(CENTER_ALIGNMENT);
 		return botao;
 	}
 	
-	private RobosAbstract selecionarRobo(int indexArrayDeRobos) {
-		RobosAbstract roboTemp = null;
+	private Robos selecionarRobo(int indexArrayDeRobos) {
+		Robos roboTemp = null;
 		try {
 			
-			roboTemp = (RobosAbstract) arrayDeRobos.get(indexArrayDeRobos);
+			roboTemp = (Robos) listaRobos.get(indexArrayDeRobos);
 			
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println("ERRO!");
@@ -108,19 +105,19 @@ public class Botoes extends Painel{
 	private class botaoVerificar implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
-			int botoesRoboLigados=0;
-			for (JButton botao : botoesDeRobos) 
+			int botoesRoboLigados = 0;
+			for (JButton botao : botoesRobos) 
 				if(!botao.isEnabled()) 
 					botoesRoboLigados++;
 			
-			if(botoesRoboLigados == botoesDeRobos.size()) {
+			if(botoesRoboLigados == botoesRobos.size()) {
 				
 				((JButton) e.getSource()).setEnabled(false);
 				botaoProxRodada.setEnabled(true);
-				ig.verificar();
-				((PainelLateral) painelDeRelatorio).atualizarJLabelsDeRelatorio();
+				janela.verificar();
+				((PainelLateral) painelRelatorio).atualizarInfoDoJogo();
 			} else {
-				ig.painelMessageDialog(((JButton) e.getSource()), "Posicione todos os robos");
+				janela.painelMessageDialog(((JButton) e.getSource()), "Posicione todos os robos");
 			}
 			
 		}
@@ -129,7 +126,7 @@ public class Botoes extends Painel{
 	private class botaoRodada implements ActionListener {
 		
 		public void actionPerformed(ActionEvent e) {
-			ig.proximaRodada();
+			janela.proximaRodada();
 			
 		}
 	}
@@ -138,7 +135,7 @@ public class Botoes extends Painel{
 		
 		public void actionPerformed(ActionEvent e) {
 			
-			ig.sairDoJogo();
+			janela.sairDoJogo();
 		}
 	}
 	
@@ -154,8 +151,8 @@ public class Botoes extends Painel{
 			JButton b = (JButton) e.getSource();
 				b.setBackground(b.getBackground().darker());
 				b.setEnabled(false);
-				ig.setRoboTemp(selecionarRobo(numeroRobo));
-				ig.setVisibilidadeBotoesCoord(true);
+				janela.setRoboTemp(selecionarRobo(numeroRobo));
+				janela.setVerBotao(true);
 		}
 	}
 } 

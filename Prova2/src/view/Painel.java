@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.Icon;
@@ -13,17 +12,18 @@ import javax.swing.JPanel;
 
 public abstract class Painel extends JPanel{
 	
-	private Janela ig;
+	private Janela janela;
 	
-	public Painel(Janela ig) {
+	public Painel(Janela janela) {
 		
-		this.ig = ig;
+		this.janela = janela;
 	} 
 	
 	
 	protected JPanel criarpainel() {
 		return new JPanel();
 	}
+	
 	protected JPanel criarpainel(Color c) {	
 		JPanel p = new JPanel();
 		p.setBackground(c);
@@ -31,20 +31,25 @@ public abstract class Painel extends JPanel{
 	}
 // lembrar sobrecarga de metodos
 	
-	protected ImageIcon criarImageIcon(String diretorio, int tamanhoX, int tamanhoY) {
+	protected ImageIcon criarImageIcon(String strg, int tamanhoX, int tamanhoY) {
 		Image novaImg = null;
-		diretorio = "src\\img\\" + diretorio;
+		strg = "src\\img\\" + strg;
+		
 		try {
-			Image imagem = new ImageIcon(diretorio).getImage();
+			
+			Image imagem = new ImageIcon(strg).getImage();
 			novaImg = imagem.getScaledInstance(tamanhoX, tamanhoY,  java.awt.Image.SCALE_SMOOTH);
 		} catch (Exception e) {
+			
 			System.out.println("Erro na criacao do ImageIcon");
 			e.printStackTrace();
 		}
+		
 		return new ImageIcon(novaImg);
+		
 	}
 	
-	protected JLabel criarJLabel(String str, Color corForeground) {
+	protected JLabel criarLabel(String str, Color corForeground) {
 		
 		JLabel jl = new JLabel(str);
 		jl.setForeground(corForeground);

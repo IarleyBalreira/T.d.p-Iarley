@@ -16,13 +16,12 @@ public class JanelaRelatorio extends JFrame{
 	private DefaultTableModel modeloJTable;
 	private JTable tabela;
 	
-	public JanelaRelatorio(String[] strDeDados, Component parentComponent) {
+	public JanelaRelatorio(String[] strgDados, Component parentComponent) {
 		
-		this.setSize(1100,550);
+		this.setSize(1000,550);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(parentComponent);
-		Font fontePadrao = new Font("SansSerif", Font.BOLD, 14);
 		
 		modeloJTable = new DefaultTableModel();
 		
@@ -37,7 +36,7 @@ public class JanelaRelatorio extends JFrame{
 	 	modeloJTable.addColumn("Rei");
 	 	modeloJTable.addColumn("Cavalo");
 	 	
-	 	for (String linhaDeDados : strDeDados) {
+	 	for (String linhaDeDados : strgDados) {
 	 		
 			String dados[] = linhaDeDados.split(";");
 			modeloJTable.addRow(dados);
@@ -45,11 +44,7 @@ public class JanelaRelatorio extends JFrame{
 	 	
 		tabela = new JTable(modeloJTable);
 		
-		tabela.setBackground(Color.LIGHT_GRAY);
-		tabela.setFont(fontePadrao);
-		
 		this.add(new JScrollPane(tabela));
-		
 		this.setVisible(true);
 	}
 	

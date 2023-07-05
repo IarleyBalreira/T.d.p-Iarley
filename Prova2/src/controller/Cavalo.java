@@ -1,9 +1,9 @@
 
 package controller;
 
-public class RoboCavalo extends RobosAbstract{
+public class Cavalo extends Robos{
 	
-	public RoboCavalo(String nome, Plano plano, int vermelho, int verde, int azul) {
+	public Cavalo(String nome, Plano plano, int vermelho, int verde, int azul) {
 		super(nome, plano, vermelho, verde,  azul);
 	}
 

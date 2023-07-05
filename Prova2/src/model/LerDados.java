@@ -5,36 +5,39 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class Leitura {
+public class LerDados {
 	
 	private BufferedReader leitor;
-	private String diretorio;
+	private String strg;
 	
-	public Leitura() {
-		diretorio = "src\\dados\\Dados.txt";
+	public LerDados() {
+		strg = "src\\dados\\Dados.txt";
 	}
 	
 	public String[] lerLinhas() {
+		
 		ArrayList<String> arrayStringTemp = new ArrayList<String>();
 		
 		try {
 			
-			leitor = new BufferedReader(new FileReader(diretorio));
+			leitor = new BufferedReader(new FileReader(strg));
 			while (leitor.ready()) {
 				arrayStringTemp.add(leitor.readLine());
 			}
 			leitor.close();
 			
 		} catch (FileNotFoundException e) {
+			
 			System.out.println("EXCEPTION Classe Leitura: Arquivo Dados não encontrado");
 			e.printStackTrace();
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
 		
 		String arrayString[] = new String[arrayStringTemp.size()];
 		
-		for(int i=0; i<arrayString.length; i++) {
+		for(int i = 0; i < arrayString.length; i++) {
 			arrayString[i] = arrayStringTemp.get(i);
 		}
 		
@@ -47,9 +50,12 @@ public class Leitura {
 		
 		try {
 			
-			leitor = new BufferedReader(new FileReader(diretorio));
+			leitor = new BufferedReader(new FileReader(strg));
+			
 			while (leitor.ready()) {
+				
 				str += (leitor.readLine()+"\n");
+				
 			}
 			leitor.close();
 			

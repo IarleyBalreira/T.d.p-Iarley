@@ -11,35 +11,35 @@ import controller.*;
 
 public class Janela extends JFrame {
 
-	private Gerador controlador;
+	private Gerador gerador;
 	private int tamanho;
-	private RobosAbstract roboTemp;
-	private JPanel painelDeInicio;
-	private JPanel painelBotoesDeCoord;
-	private JPanel painelBotoesDeComando;
+	private Robos roboTemp;
+	private JPanel painelInicial;
+	private JPanel painelBotaoCelula;
+	private JPanel painelBotoes;
 	
-	public Janela(Gerador controlador, Plano plano, ArrayList<RobosAbstract> robos) {
+	public Janela(Gerador gerador, Plano plano, ArrayList<Robos> robos) {
 		
-		this.controlador = controlador;
+		this.gerador = gerador;
 		this.tamanho = plano.getTamanho();
 		
 		this.setSize(900, 650);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
+		
 		
 		this.setLayout(new BorderLayout());
 		
 		
-		painelDeInicio = new PainelInicial(this, plano);
-		this.add(painelDeInicio, BorderLayout.PAGE_START);
+		painelInicial = new PainelInicial(this, plano);
+		this.add(painelInicial, BorderLayout.NORTH);
 		
-		painelBotoesDeCoord = new BotaoCelula(this, tamanho, plano.getArrayListCelulas());
-		this.add(painelBotoesDeCoord, BorderLayout.WEST);
-		this.setVisibilidadeBotoesCoord(false);
+		painelBotaoCelula = new BotaoCelula(this, tamanho, plano.getListaCelulas());
+		this.add(painelBotaoCelula, BorderLayout.CENTER);
+		this.setVerBotao(false);
 	
-		painelBotoesDeComando = new Botoes(this, plano, robos);
-		this.add(painelBotoesDeComando, BorderLayout.EAST);
+		painelBotoes = new BotoesInGame(this, plano, robos);
+		this.add(painelBotoes, BorderLayout.EAST);
 		
 		if(plano.getNomeJogador() != null)
 			this.setVisibilidadeBotoesComando(true);
@@ -51,28 +51,19 @@ public class Janela extends JFrame {
 	
 	
 	protected void relatorioDoJogo() { 
-		controlador.instanciarJanelaDeRelatorio();
+		gerador.instanciarJanelaDeRelatorio();
 	}
 	
 	protected void sairDoJogo() { 
-		controlador.finalizarJogo();
+		gerador.finalizarJogo();
 	}
 	
 	protected void verificar() { 
-		controlador.verificarRodada();
+		gerador.verificarRodada();
 	}
 	
 	protected void proximaRodada() { 
-		controlador.iniciarProximaRodada();
-	}
-	
-	
-	protected void painelMessageDialog(Component parentComponent, String msg) {
-		JOptionPane.showMessageDialog(parentComponent, msg, "Aviso do Jogo", 1);
-	}
-	
-	public void mostrarMsgFimDeJogo() {
-		this.painelMessageDialog(this, "Parabens! \nTodos os alunos foram resgatados.");
+		gerador.iniciarProximaRodada();
 	}
 	
 	
@@ -84,17 +75,26 @@ public class Janela extends JFrame {
 			roboTemp=null;
 			coord[0]=-1;
 			coord[1]=-1;
-			this.setVisibilidadeBotoesCoord(false);
+			this.setVerBotao(false);
 		}
 	}	
 	
-	
-	protected void setVisibilidadeBotoesComando(boolean estado) {
-		painelBotoesDeComando.setVisible(estado);
+	protected void painelMessageDialog(Component parentComponent, String msg) {
+		
+		JOptionPane.showMessageDialog(parentComponent, msg, "!!!", 1);
 	}
 	
-	protected void setVisibilidadeBotoesCoord(boolean estado) {
-		painelBotoesDeCoord.setVisible(estado);
+	public void mostrarMsgFimDeJogo() {
+		this.painelMessageDialog(this, "Parabens! \nTodos os alunos foram resgatados.");
+	}
+	
+	
+	protected void setVisibilidadeBotoesComando(boolean estado) {
+		painelBotoes.setVisible(estado);
+	}
+	
+	protected void setVerBotao(boolean estado) {
+		painelBotaoCelula.setVisible(estado);
 	}
 	
 	
@@ -103,7 +103,7 @@ public class Janela extends JFrame {
 	}
 	
 	
-	protected void setRoboTemp(RobosAbstract roboTemp) {
+	protected void setRoboTemp(Robos roboTemp) {
 		this.roboTemp = roboTemp;
 	}
 	

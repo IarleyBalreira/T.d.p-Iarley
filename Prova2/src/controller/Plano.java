@@ -8,8 +8,8 @@ public class Plano {
 	private int tamanho;
 	private ArrayList<Celulas> celulas;
 	private int numAlunos;
-	private int qtdAlunosCapturados;
-	private int qtdBugsCapturados;
+	private int alunosEncontrados;
+	private int bugsEncontrados;
 	
 	
 	private String nomeJogador;
@@ -30,7 +30,8 @@ public class Plano {
 		Random aleatorio = new Random();
 		ArrayList<Integer> listaNumAleatorios = new ArrayList<>();
 		int num;
-		for(; listaNumAleatorios.size()<(numBugs+numAlunos); ) {
+		
+		for( ; listaNumAleatorios.size() < (numBugs + numAlunos); ) {
 			do {
 				num = aleatorio.nextInt(tamanho*tamanho);
 			} while(listaNumAleatorios.contains(num));
@@ -54,35 +55,41 @@ public class Plano {
 		
 	} 
 	
-	protected void moverRobo(int coordInicial[], int coordFinal[], RobosAbstract robo) {
+	public void novaRodada() {
+		numrodadas++; 
+	}
+	
+	protected void moverRobo(int coordInicial[], int coordFinal[], Robos robo) {
 		
 		this.encontrarCelula(coordInicial).removerRobo(robo);
 		this.encontrarCelula(coordFinal).addRobo(robo);
 	}
 	
 	
-	public void atualizarQtdBugEAlunos() {
-		qtdAlunosCapturados = 0;
-		qtdBugsCapturados = 0;
+	public void atualizarBugEAlunos() {
+		alunosEncontrados = 0;
+		bugsEncontrados = 0;
+		
 		for (Celulas celula : celulas)
 			if(celula.roboVisitou()) {
 				
 				if(celula.temAluno()) 
-					qtdAlunosCapturados++;
+					alunosEncontrados++;
 				
 				if(celula.temBug()) 
-					qtdBugsCapturados++;
+					bugsEncontrados++;
 			}
 	}
 	
 	
 	protected int celulasVazias() {
-		int contador=0;
+		int cont = 0;
+		
 		for (Celulas celula : celulas) 
-			if(!celula.roboVisitou()) 
-				contador++;
+			if(!celula.roboVisitou())   // passa pelas celulas para contar o numero de celulas nao visitadas
+				cont++;
 
-		return contador;
+		return cont;
 	}
 	
 	
@@ -102,41 +109,42 @@ public class Plano {
 	}
 	
 	
-	public void novaRodada() {
-		numrodadas++; 
-	}
-	
 	protected boolean celulaTemAluno(int coord[]) {
+		
 		Celulas celulaTemp = encontrarCelula(coord);
 			if(celulaTemp.temAluno() && !celulaTemp.roboVisitou()) 
 				return true;
 		return false;
+		
 	}
 	
 	protected boolean celulaTemBug(int coord[]) {
+		
 		Celulas celulaTemp = encontrarCelula(coord);
 			if(celulaTemp.temBug() && !celulaTemp.roboVisitou())
 				return true;
 		return false;
+		
 	}
 	
 	private Celulas encontrarCelula(int[] coord) {
+		
 		for (Celulas celula : this.celulas)
 			if(celula.getCoords()[0] == coord[0] && celula.getCoords()[1] == coord[1]) 
 				return celula;
 		return null;
 	}
 	
-	public ArrayList<Celulas> getArrayListCelulas(){
+	public ArrayList<Celulas> getListaCelulas(){
 		return this.celulas;
 	}
 	
 	public int alunosResgatados() {
-		return qtdAlunosCapturados;
+		return alunosEncontrados;
 	}
 
 	public int bugsOcorridos() {
-		return qtdBugsCapturados;
+		return bugsEncontrados;
 	}
 	
 	public String getNomeJogador() {
@@ -147,7 +155,7 @@ public class Plano {
 		this.nomeJogador = nomeJogador;
 	}
 
-	public int getQtdRodadas() {
+	public int getNumRodadas() {
 		return numrodadas;
 	}
 
